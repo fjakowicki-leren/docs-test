@@ -1,0 +1,38 @@
+{
+    "inputDir": "./",
+    "outputDir": "./.docs",
+    "excludedDirs": [
+      "node_modules", 
+      ".git", 
+      ".svn", 
+      "dist", 
+      "build"
+    ],
+    "languageMapping": {
+      ".js": "javascript",
+      ".ts": "typescript",
+      ".tpl": "twig",
+      ".php": "php",
+      ".py": "python"
+    },
+    "supportedExtensions": [
+      ".js",
+      ".tpl",
+      ".ts", 
+      ".vue", 
+      ".html", 
+      ".php"
+    ],
+    "commentStyles": {
+      "js": {
+        "single": "//",
+        "multi": ["/*", "*/"]
+      },
+      "html": {
+        "multi": ["<!--", "-->"]
+      },
+      "tpl": {
+        "multi": ["{#", "#}"]
+      }
+    }
+}

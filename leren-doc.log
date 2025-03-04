@@ -1,0 +1,68 @@
+2025-03-04T19:06:23.485Z [[31merror[39m]: El directorio de entrada ./src no existe
+2025-03-04T19:06:43.569Z [[32minfo[39m]: Iniciando procesamiento de documentación...
+2025-03-04T19:06:43.679Z [[32minfo[39m]: Procesamiento de documentación completado
+2025-03-04T19:07:28.881Z [[32minfo[39m]: Iniciando procesamiento de documentación...
+2025-03-04T19:07:28.892Z [[32minfo[39m]: Procesamiento de documentación completado
+2025-03-04T19:09:03.421Z [[32minfo[39m]: Iniciando procesamiento de documentación...
+2025-03-04T19:09:05.286Z [[32minfo[39m]: Generado markdown para desarrollo: Desarrollo de prueba
+2025-03-04T19:09:05.287Z [[32minfo[39m]: Generado markdown general: header.tpl
+2025-03-04T19:09:05.288Z [[32minfo[39m]: Procesamiento de documentación completado
+2025-03-04T19:23:41.896Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:23:41.904Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:24:51.515Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:24:51.519Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:24:51.566Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:24:51.567Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:24:51.568Z [[32minfo[39m]: Generated general markdown: style-colors.scss
+2025-03-04T19:24:51.568Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:32:22.535Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:32:22.539Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:32:22.612Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:32:22.613Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:32:22.613Z [[32minfo[39m]: Generated general markdown: style-colors.scss
+2025-03-04T19:32:22.614Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:35:38.453Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:35:38.457Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:35:38.506Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:35:38.507Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:35:38.508Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:36:07.438Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:36:07.442Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:36:07.488Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:36:07.490Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:36:07.490Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:36:49.252Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:36:49.256Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:36:49.304Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:36:49.305Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:36:49.307Z [[32minfo[39m]: Generated general markdown: style-colors.scss
+2025-03-04T19:36:49.307Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:37:54.302Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:37:54.306Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:37:54.376Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:37:54.377Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:37:54.377Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:38:31.125Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:38:31.129Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:38:31.175Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:38:31.177Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:38:31.177Z [[32minfo[39m]: Generated general markdown: style-colors.scss
+2025-03-04T19:38:31.178Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:39:14.583Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:39:14.587Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:39:14.635Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:39:14.637Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:39:14.638Z [[32minfo[39m]: Generated general markdown: style-colors.scss
+2025-03-04T19:39:14.638Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:40:06.492Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:40:06.496Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:40:06.544Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:40:06.545Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:40:06.546Z [[32minfo[39m]: Generated general markdown: style-colors.scss
+2025-03-04T19:40:06.547Z [[32minfo[39m]: Documentation processing completed
+2025-03-04T19:40:24.036Z [[33mwarn[39m]: Configuration file not found, using default settings
+2025-03-04T19:40:24.040Z [[32minfo[39m]: Starting documentation processing...
+2025-03-04T19:40:24.087Z [[32minfo[39m]: Generated markdown for development: Desarrollo de prueba
+2025-03-04T19:40:24.088Z [[32minfo[39m]: Generated general markdown: header.tpl
+2025-03-04T19:40:24.089Z [[32minfo[39m]: Generated general markdown: style-colors.scss
+2025-03-04T19:40:24.089Z [[32minfo[39m]: Documentation processing completed

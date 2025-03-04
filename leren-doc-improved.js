@@ -21,20 +21,20 @@ const DEFAULT_CONFIG = {
   inputDir: __dirname,
   outputDir: path.join(__dirname, '.docs'),
   excludedDirs: ['node_modules', '.git', '.svn', '.hg'],
-  supportedExtensions: ['.js', '.ts', '.html', '.php', '.vue'],
-  docIdentifier: 'leren-doc', // Identificador configurable por defecto
+  supportedExtensions: ['.js', '.tpl', '.scss'],
+  docIdentifier: 'leren-test',
+  languageMapping: {
+    '.js': 'javascript',
+    '.scss': 'css',
+    '.tpl': 'twig'
+  },
   commentStyles: {
     js: { single: '//', multi: ['/*', '*/'] },
-    html: { multi: ['<!--', '-->'] },
-    vue: { multi: ['<!--', '-->'] }
+    scss: { single: '/*', multi: ['/*', '*/'] },
+    tpl: { multi: ['{#', '#}'] }
   }
 };
 
-/**
- * Loads configuration from a JSON file
- * @param {string} configPath - Path to the configuration file
- * @returns {Object} Merged configuration
- */
 function loadConfig(configPath = './leren-doc.config.json') {
   try {
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
@@ -43,7 +43,11 @@ function loadConfig(configPath = './leren-doc.config.json') {
       ...config,
       inputDir: config.inputDir || DEFAULT_CONFIG.inputDir,
       outputDir: config.outputDir || DEFAULT_CONFIG.outputDir,
-      docIdentifier: config.docIdentifier || DEFAULT_CONFIG.docIdentifier
+      docIdentifier: config.docIdentifier || DEFAULT_CONFIG.docIdentifier,
+      languageMapping: {
+        ...DEFAULT_CONFIG.languageMapping,
+        ...config.languageMapping
+      }
     };
   } catch (error) {
     logger.warn('Configuration file not found, using default settings');
@@ -55,26 +59,42 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-/**
- * Extracts documentation sections from file content
- * @param {string} content - File content
- * @param {string} fileName - Name of the file
- * @param {string} docIdentifier - Custom documentation identifier
- * @returns {Array} Extracted documentation sections
- */
-function extractLerenDocSections(content, fileName, docIdentifier = 'leren-doc') {
+function normalizeIndentation(code) {
+  const lines = code.split(/\r?\n/);
+  const indentLengths = lines
+    .filter((line) => line.trim())
+    .map((line) => line.match(/^\s*/)[0].length);
+  const minIndent = Math.min(...indentLengths);
+  return lines.map((line) => line.slice(minIndent)).join('\n');
+}
+
+function parseMetadata(line) {
+  const metadataRegex = /\[(.*?)\]/g;
+  const matches = [...line.matchAll(metadataRegex)];
+  const metadata = {};
+  
+  if (matches.length > 0) {
+    matches.forEach((match) => {
+      const [key, value] = match[1].split(':').map((s) => s.trim());
+      if (key && value) {
+        metadata[key.toLowerCase()] = value;
+      }
+    });
+  }
+  
+  return metadata;
+}
+
+function extractLerenDocSections(content, fileName, config) {
+  const { docIdentifier, languageMapping } = config;
   const extractedSections = [];
   const escapedIdentifier = escapeRegExp(docIdentifier);
   
-  // Regex para comentarios de una línea
   const commentRegex = new RegExp(`(?:\\{#|\\/\\*|<!--)\\s*${escapedIdentifier}(?!-start|-end)([\\s\\S]*?)(?:#}|\\*/|-->)\\n?`, 'g');
-  
-  // Regex para bloques de código
   const blockRegex = new RegExp(`(?:\\{#|\\/\\*|<!--)\\s*${escapedIdentifier}-start\\s*(.*?)\\s*(?:#}|\\*/|-->)\\n?([\\s\\S]*?)(?:\\{#|\\/\\*|<!--)\\s*${escapedIdentifier}-end\\s*(?:#}|\\*/|-->)\\n?`, 'g');
 
   let match;
 
-  // Procesar comentarios de una línea
   while ((match = commentRegex.exec(content)) !== null) {
     try {
       const lineNumber = content.slice(0, match.index).split(/\r?\n/).length;
@@ -100,7 +120,6 @@ function extractLerenDocSections(content, fileName, docIdentifier = 'leren-doc')
     }
   }
 
-  // Procesar bloques de código
   while ((match = blockRegex.exec(content)) !== null) {
     try {
       const lineNumber = content.slice(0, match.index).split(/\r?\n/).length;
@@ -122,12 +141,73 @@ function extractLerenDocSections(content, fileName, docIdentifier = 'leren-doc')
   return extractedSections;
 }
 
-// Resto de las funciones anteriores permanecen igual...
+function generateMarkdownByDevelopment(developmentSections, outputDir, config) {
+  const { languageMapping } = config;
 
-/**
- * Recursively processes files to extract documentation
- * @param {Object} config - Processing configuration
- */
+  try {
+    fs.mkdirSync(path.join(outputDir, 'desarrollos'), { recursive: true });
+
+    Object.entries(developmentSections).forEach(([development, sections]) => {
+      sections.sort((a, b) => (parseInt(a.metadata.paso) || 0) - (parseInt(b.metadata.paso) || 0));
+      
+      const markdownContent = [
+        `id: ${development.replace(/\s+/g, '_').toLowerCase()}`,
+        ...sections.map(({ type, content, fileName, metadata }) => {
+          if (type === 'code') {
+            // Determinar el lenguaje basado en la extensión del archivo
+            const ext = path.extname(fileName);
+            const language = languageMapping[ext] || 'plaintext';
+            return `\n\n\`\`\`${language}\n${content}\n\`\`\``;
+          }
+          return `\n\n${content}`;
+        }),
+      ].join('\n');
+
+      const outputFilePath = path.join(
+        outputDir, 
+        'desarrollos', 
+        `${development.replace(/\s+/g, '_').toLowerCase()}.md`
+      );
+      
+      fs.writeFileSync(outputFilePath, markdownContent);
+      logger.info(`Generated markdown for development: ${development}`);
+    });
+  } catch (error) {
+    logger.error('Error generating markdown by development:', error);
+  }
+}
+
+function generateGeneralMarkdown(generalSections, outputDir, config) {
+  const { languageMapping } = config;
+
+  try {
+    Object.entries(generalSections).forEach(([fileName, sections]) => {
+      const markdownContent = [
+        `id: ${fileName.replace(/\./g, '_')}`,
+        ...sections.map(({ type, content, fileName }) => {
+          if (type === 'code') {
+            // Determinar el lenguaje basado en la extensión del archivo
+            const ext = path.extname(fileName);
+            const language = languageMapping[ext] || 'plaintext';
+            return `\n\n\`\`\`${language}\n${content}\n\`\`\``;
+          }
+          return `\n\n${content}`;
+        }),
+      ].join('\n');
+
+      const outputFilePath = path.join(
+        outputDir, 
+        `${fileName.replace(/\./g, '_').toLowerCase()}.md`
+      );
+      
+      fs.writeFileSync(outputFilePath, markdownContent);
+      logger.info(`Generated general markdown: ${fileName}`);
+    });
+  } catch (error) {
+    logger.error('Error generating general markdown:', error);
+  }
+}
+
 function processFilesRecursively(config) {
   const { 
     inputDir, 
@@ -171,7 +251,7 @@ function processFilesRecursively(config) {
               const extractedSections = extractLerenDocSections(
                 content, 
                 entry.name, 
-                docIdentifier
+                config
               );
               
               extractedSections.forEach((section) => {
@@ -202,13 +282,22 @@ function processFilesRecursively(config) {
   logger.info('Starting documentation processing...');
   traverseDirectory(inputDir);
 
-  generateMarkdownByDevelopment(developmentSections, outputDir);
-  generateGeneralMarkdown(generalSections, outputDir);
+  generateMarkdownByDevelopment(developmentSections, outputDir, config);
+  generateGeneralMarkdown(generalSections, outputDir, config);
   
   logger.info('Documentation processing completed');
 }
 
-// Resto del código permanece igual...
+function main() {
+  try {
+    const config = loadConfig();
+    processFilesRecursively(config);
+  } catch (error) {
+    logger.error('Error in main execution:', error);
+  }
+}
+
+main();
 
 module.exports = {
   processFilesRecursively,

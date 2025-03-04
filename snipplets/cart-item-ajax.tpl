@@ -21,7 +21,7 @@
               <span class="font-small" data-component="name.short-variant-name">{{ item.short_variant_name }}</span>
             </a>
 
-            {# leren-doc [desarrollo:Desarrollo de prueba] [paso:3]
+            {# leren-test [desarrollo:Desarrollo de prueba] [paso:3]
             
             ## Paso final
 

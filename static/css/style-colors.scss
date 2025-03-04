@@ -67,13 +67,21 @@ style-colors.scss
 
 /* // Margin and Padding */
 
-/* leren-doc
+/* leren-test
 
 Prueba de comentario comun
 
 */
 
-/* leren-doc-start */
+/* leren-test
+
+Prueba de comentario comun
+
+mas texto
+
+*/
+
+/* leren-test-start */
 
 %section-margin {
   margin-bottom: 70px;
@@ -85,7 +93,7 @@ Prueba de comentario comun
   margin-bottom: 10px;
 }
 
-/* leren-doc-end */
+/* leren-test-end */
 
 /* // Mixins */
 
