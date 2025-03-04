@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "docs": "node startDocs.js",
+    "init-docs": "docsify init ./.docs"
+  },
+  "dependencies": {
+    "docsify-cli": "^4.4.4"
+  }
+}
